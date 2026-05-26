@@ -1,0 +1,17 @@
+# Claude Code
+.claude/settings.local.json
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# nginx runtime
+nginx/nginx.pid
