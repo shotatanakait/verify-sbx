@@ -10,6 +10,8 @@ if [ -f "$PROJECT_DIR/logs/nginx.pid" ] && kill -0 "$(cat "$PROJECT_DIR/logs/ngi
     exit 1
 fi
 
+"$SCRIPT_DIR/setup_redis.sh"
+
 openresty -p "$PROJECT_DIR" -c "$CONF" -t
 openresty -p "$PROJECT_DIR" -c "$CONF"
 echo "Server started on port 8080 (NGINX_ENV=${NGINX_ENV:-dev})"
