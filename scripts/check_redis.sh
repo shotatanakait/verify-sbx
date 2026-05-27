@@ -4,6 +4,10 @@ set -euo pipefail
 REDIS_HOST="${REDIS_HOST:-127.0.0.1}"
 REDIS_PORT="${REDIS_PORT:-6379}"
 
+if [ -n "${REDIS_PASSWORD:-}" ]; then
+    export REDISCLI_AUTH="$REDIS_PASSWORD"
+fi
+
 echo "Checking Redis at ${REDIS_HOST}:${REDIS_PORT}..."
 
 if ! redis-cli -h "$REDIS_HOST" -p "$REDIS_PORT" ping; then

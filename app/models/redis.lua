@@ -18,6 +18,15 @@ function M.new(db)
         return nil, "failed to connect to Redis: " .. err
     end
 
+    if config.redis.password then
+        local res
+        res, err = red:auth(config.redis.password)
+        if not res then
+            red:close()
+            return nil, "failed to auth Redis: " .. err
+        end
+    end
+
     local target_db = db ~= nil and db or config.redis.db
     local res
     res, err = red:select(target_db)

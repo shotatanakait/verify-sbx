@@ -4,6 +4,10 @@ set -euo pipefail
 REDIS_HOST="${REDIS_HOST:-127.0.0.1}"
 REDIS_PORT="${REDIS_PORT:-6379}"
 
+if [ -n "${REDIS_PASSWORD:-}" ]; then
+    export REDISCLI_AUTH="$REDIS_PASSWORD"
+fi
+
 if ! redis-cli -h "$REDIS_HOST" -p "$REDIS_PORT" ping > /dev/null 2>&1; then
     echo "Error: Redis is not running at ${REDIS_HOST}:${REDIS_PORT}" >&2
     exit 1
