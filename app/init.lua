@@ -3,7 +3,6 @@ local os = os
 local redis_host = os.getenv("REDIS_HOST") or "127.0.0.1"
 local redis_port = tonumber(os.getenv("REDIS_PORT")) or 6379
 
--- Store Redis config in a package-level module for other modules to access
 package.loaded["config"] = {
     redis = {
         host = redis_host,
