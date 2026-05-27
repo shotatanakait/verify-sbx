@@ -19,13 +19,11 @@ function M.new(db)
     end
 
     local target_db = db ~= nil and db or config.redis.db
-    if target_db ~= 0 then
-        local res
-        res, err = red:select(target_db)
-        if not res then
-            red:close()
-            return nil, "failed to select Redis DB " .. target_db .. ": " .. err
-        end
+    local res
+    res, err = red:select(target_db)
+    if not res then
+        red:close()
+        return nil, "failed to select Redis DB " .. target_db .. ": " .. err
     end
 
     return red
