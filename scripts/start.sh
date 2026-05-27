@@ -10,7 +10,10 @@ if [ -f "$PROJECT_DIR/logs/nginx.pid" ] && kill -0 "$(cat "$PROJECT_DIR/logs/ngi
     exit 1
 fi
 
-"$SCRIPT_DIR/setup_redis.sh"
+"$SCRIPT_DIR/setup_redis.sh" 2>> "$PROJECT_DIR/logs/error.log" || {
+    echo "setup_redis.sh failed. See logs/error.log" >&2
+    exit 1
+}
 
 openresty -p "$PROJECT_DIR" -c "$CONF" -t
 openresty -p "$PROJECT_DIR" -c "$CONF"
