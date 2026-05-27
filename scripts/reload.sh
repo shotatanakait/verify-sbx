@@ -3,5 +3,6 @@ set -euo pipefail
 
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
+openresty -p "$PROJECT_DIR" -c "$CONF" -t
 openresty -p "$PROJECT_DIR" -c "$CONF" -s reload
 echo "Configuration reloaded"
