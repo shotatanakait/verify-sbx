@@ -5,12 +5,21 @@ local M = {}
 
 local routes = {}
 
+local function health_handler()
+    ngx.status = ngx.HTTP_OK
+    ngx.header["Content-Type"] = "application/json"
+    ngx.say(cjson.encode({ status = "ok" }))
+    ngx.exit(ngx.HTTP_OK)
+end
+
 local function json_error(status, message)
     ngx.status = status
     ngx.header["Content-Type"] = "application/json"
     ngx.say(cjson.encode({ error = message }))
     ngx.exit(status)
 end
+
+routes["/health"] = { method = "GET", handler = health_handler }
 
 function M.get(path, handler)
     routes[path] = { method = "GET", handler = handler }

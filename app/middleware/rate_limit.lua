@@ -28,10 +28,10 @@ function M.check()
         return
     end
 
-    local reset_time = ngx.time() + 60
+    local ttl = rate_limit_dict:ttl(key)
     ngx.header["X-RateLimit-Limit"]     = LIMIT_PER_MINUTE
     ngx.header["X-RateLimit-Remaining"] = math.max(0, LIMIT_PER_MINUTE - count)
-    ngx.header["X-RateLimit-Reset"]     = reset_time
+    ngx.header["X-RateLimit-Reset"]     = math.ceil(ngx.time() + (ttl > 0 and ttl or 60))
 
     if count > LIMIT_PER_MINUTE then
         return json_error(429, "too_many_requests", {
