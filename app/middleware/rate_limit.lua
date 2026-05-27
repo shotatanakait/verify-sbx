@@ -35,7 +35,7 @@ function M.check()
 
     if count > LIMIT_PER_MINUTE then
         return json_error(429, "too_many_requests", {
-            ["Retry-After"] = 60,
+            ["Retry-After"] = math.ceil(ttl > 0 and ttl or 60),
         })
     end
 end
