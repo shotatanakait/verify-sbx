@@ -19,3 +19,6 @@ Thumbs.db
 # nginx runtime
 nginx/nginx.pid
 temp/
+
+# Redis
+dump.rdb
